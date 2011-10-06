@@ -11,7 +11,6 @@
 	{
 		
 		protected var health:int = 100;
-		
 		function Entity(x:int, y:int):void
 		{
 			this.x = x;

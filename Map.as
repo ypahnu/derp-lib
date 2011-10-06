@@ -19,6 +19,7 @@
 			
 			var r:int;
 			
+			// creating an array of 0,1 values for map
 			for (var i:int = 0; i < y; i++)
 			{
 				for (var j:int = 0; j < x; j++)
@@ -39,7 +40,7 @@
 				}
 			}
 			
-			
+			// rendering to stage
 			for (var i:int = 0; i < level.length; i++)
 			{
 				for (var j:int = 0; j < level[0].length; j++)

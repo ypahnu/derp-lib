@@ -1,23 +1,17 @@
 ﻿package au.net.mjt.learning
 {
-	/**
-	 * ...
-	 * @author matt
-	 */
 	
 	public class Player extends Entity 
 	{
-		/// one of these should be right ??
-		// public static var movespeed:int = 10;
-		// public static var movespeed:int = 10;
-		// public static const movespeed : uint = 8;
+		public var movespeed:int;
 		
-		public function Player(x:int, y:int, health:int, movespeed:int):void
+		public function Player(x:int, y:int, health:int, movespd:int):void
 		{
+			// super get the fatures from Entity because it extended it
 			super(x, y);
 			
 			this.health = health;
-			//this.movespeed = movespeed;
+			this.movespeed = movespd;
 			
 			addChild(new mc_player);
 		}
