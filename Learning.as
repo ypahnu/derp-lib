@@ -6,6 +6,10 @@
 	 
 	public class Learning extends Sprite
 	{
+		
+		var universeContainer:DisplayObjectContainer;
+		
+		
 		var ma_world:Map;
 		var ma_player:Player;
 		var ma_npc:Npc;
@@ -41,6 +45,10 @@
 			initInputListeners();
 			initScreenListeners();
 			
+			/// This holds the whole game world
+			addChild(universeContainer);
+			
+			
 			initWorld();
 		}
 		
@@ -58,37 +66,33 @@
 		
 		
 		/// temp game loop
+		// should be in game class too i guess
 		private function gameLoop():void 
 		{
-			
-			/*
-			38 up
-			40 down
-			37 left
-			39 right
-			*/
-			
 			/// move entities (player only currently)
-			
-			if (Input.isDown(37))
-			{
-				ma_player.x -= ma_player.movespeed;
-			}
-			
-			if (Input.isDown(39))
-			{
-				ma_player.x += ma_player.movespeed;
-			}
-			
-			if (Input.isDown(38))
-			{
-				ma_player.y -= ma_player.movespeed;
-			}
-			
-			if (Input.isDown(40))
-			{
-				ma_player.y += ma_player.movespeed;
-			}
+				//              left                  a
+				if (Input.isDown(37) || Input.isDown(65))
+				{
+					ma_player.x -= ma_player.movespeed;
+				}
+				
+				//             right                  d
+				if (Input.isDown(39) || Input.isDown(68))
+				{
+					ma_player.x += ma_player.movespeed;
+				}
+				
+				//               up                   w
+				if (Input.isDown(38) || Input.isDown(87))
+				{
+					ma_player.y -= ma_player.movespeed;
+				}
+				
+				//              down                  s
+				if (Input.isDown(40) || Input.isDown(83))
+				{
+					ma_player.y += ma_player.movespeed;
+				}
 			
 			
 			/// lol checking 2 keys at once :)
@@ -159,24 +163,25 @@
 		
 		
 		
-		
+		/// currently this addsall the entities to the map
+		// this should be a new Game Class
 		private function initWorld():void
 		{
 			// world
 			ma_world = new Map(10, 10);
-			addChild(ma_world);
+			universeContainer.addChild(ma_world);
 			
 			// player
 			//                      x    y  heal  spd
 			ma_player = new Player(125, 175, 100, 3);
 			ma_player.name = "Playa";
-			addChild(ma_player);
+			universeContainer.addChild(ma_player);
 			
 			// npc
 			//                x    y  heal   ai
 			ma_npc = new Npc(275, 275, 90, Ai.ai1);
 			ma_npc.name = "Beastie";
-			addChild(ma_npc);
+			universeContainer.addChild(ma_npc);
 		}
 		
 		
