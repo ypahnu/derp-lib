@@ -1,10 +1,6 @@
 ﻿package au.net.mjt.learning
 {
-	
-	/**
-	 * ...
-	 * @author matt
-	 */
+	// something to test git 
 	
 	import flash.display.*;
 	 

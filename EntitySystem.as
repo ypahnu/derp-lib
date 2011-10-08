@@ -1,6 +1,7 @@
 ﻿package au.net.mjt.learning
 {
-		
+	// something to test git 
+	
 	class EntitySystem
 	{
 		// a list of all gentities, eg player, npc, trigger

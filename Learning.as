@@ -3,16 +3,27 @@
 	
 	import flash.display.*;
 	import flash.events.*;
-	 
+	
+	// mr doob stats
+	import net.hires.debug.Stats;
+	
+	
 	public class Learning extends Sprite
 	{
 		
-		var universeContainer:DisplayObjectContainer;
+		private var contUniverse:DisplayObjectContainer;
+		private var contDebug:DisplayObjectContainer;
 		
+		public static var mcCaught:Sprite;
+
 		
 		var ma_world:Map;
+		
 		var ma_player:Player;
+		
 		var ma_npc:Npc;
+		var ma_npc2:Npc;
+		var ma_npc3:Npc;
 		
 		
 		/// Main
@@ -46,9 +57,26 @@
 			initScreenListeners();
 			
 			/// This holds the whole game world
-			addChild(universeContainer);
+			contUniverse = new Sprite(); // big container
+			contUniverse.x = 100;
+			contUniverse.y = 0;
+			addChild(contUniverse);
+			
+			/// Debug is a HUD layer so is ontop of game universe
+			// added last (like game HUD would be)
+			contDebug = new Stats();
+			contDebug.alpha = .7;
+			addChild(contDebug);
 			
 			
+			mcCaught = new mc_caught()
+			mcCaught.x = 200;
+			mcCaught.y = 200;
+			mcCaught.visible = false;
+			addChild(mcCaught);
+			
+			
+			// world - game - some new classy thing
 			initWorld();
 		}
 		
@@ -65,10 +93,43 @@
 		
 		
 		
+		/// currently this adds all the entities to the map
+		// this should be a new Game Class
+		private function initWorld():void
+		{
+			// world
+			ma_world = new Map(10, 10);
+			contUniverse.addChild(ma_world);
+			
+			// player
+			//                      x    y  heal  spd
+			ma_player = new Player(125, 175, 100, 3);
+			ma_player.name = "Playa";
+			contUniverse.addChild(ma_player);
+			
+			// npc
+			//                x    y  heal   ai
+			ma_npc = new Npc(275, 275, 90, Ai.aiStand);
+			ma_npc.name = "Beastie";
+			contUniverse.addChild(ma_npc);
+			
+			ma_npc2 = new Npc(175, 175, 50, Ai.aiStand);
+			ma_npc2.name = "Beastie2";
+			contUniverse.addChild(ma_npc2);
+			
+			ma_npc3 = new Npc(355, 355, 50, Ai.aiStand);
+			ma_npc3.name = "Beastie3";
+			contUniverse.addChild(ma_npc3);
+		}
+		
+		
+		
+		
 		/// temp game loop
 		// should be in game class too i guess
 		private function gameLoop():void 
 		{
+			
 			/// move entities (player only currently)
 				//              left                  a
 				if (Input.isDown(37) || Input.isDown(65))
@@ -102,11 +163,24 @@
 			// }
 			
 			
+			
+					// runai1
+			/// tell AI to move a step each loop
+			Ai.aiNpcChasePlayer(ma_npc, ma_player);
+			Ai.aiNpcChasePlayerSlow(ma_npc2, ma_player);
+			Ai.aiStand(ma_npc3);
+			
+			
+			
+			
+			
 			/// Render game
 			// renderGame();
 			
 			
 		}
+		
+		
 		
 		
 		
@@ -124,7 +198,7 @@
 		
 		private function resizeHandler(e:Event):void 
 		{
-			trace("window was resized");
+			//trace("window was resized");
 		}
 		
 		private function toggleFullscreen(e:MouseEvent)
@@ -162,30 +236,6 @@
 		
 		
 		
-		
-		/// currently this addsall the entities to the map
-		// this should be a new Game Class
-		private function initWorld():void
-		{
-			// world
-			ma_world = new Map(10, 10);
-			universeContainer.addChild(ma_world);
-			
-			// player
-			//                      x    y  heal  spd
-			ma_player = new Player(125, 175, 100, 3);
-			ma_player.name = "Playa";
-			universeContainer.addChild(ma_player);
-			
-			// npc
-			//                x    y  heal   ai
-			ma_npc = new Npc(275, 275, 90, Ai.ai1);
-			ma_npc.name = "Beastie";
-			universeContainer.addChild(ma_npc);
-		}
-		
-		
-
 		
 	}
 	
