@@ -1,11 +1,8 @@
 ﻿package au.net.mjt.learning
 {
-	import flash.display.*;
+	// something to test git .
 	
-	/**
-	 * ...
-	 * @author matt
-	 */
+	import flash.display.*;
 	
 	public class Entity extends Sprite
 	{
